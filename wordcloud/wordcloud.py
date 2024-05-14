@@ -508,10 +508,10 @@ class WordCloud(object):
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
                 # get size of resulting text
-                if word.find('\n')==-1:
-                    box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
-                else:
+                if word.find('\n')!=-1:
                     box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="la")
+                else:
+                    box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
                 # find possible places using integral image:
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
