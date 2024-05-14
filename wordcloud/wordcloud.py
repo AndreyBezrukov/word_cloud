@@ -508,7 +508,7 @@ class WordCloud(object):
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
                 # get size of resulting text
-                if word[:-1].find('\n')==-1:
+                if word.find('\n')==-1:
                     box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
                 else:
                     box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="la")
