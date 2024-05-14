@@ -496,7 +496,10 @@ class WordCloud(object):
             if random_state.random() < self.prefer_horizontal :
                 orientation = None
             else:
-                orientation = Image.ROTATE_90
+                if word.find('\n')!=-1:
+                    orientation = None
+                else:
+                    orientation = Image.ROTATE_90
             tried_other_orientation = False
             while True:
                 if font_size < self.min_font_size:
@@ -521,7 +524,7 @@ class WordCloud(object):
                     break
                 # if we didn't find a place, make font smaller
                 # but first try to rotate!
-                if not tried_other_orientation and self.prefer_horizontal < 1 and word[:-1].find('\n')==-1:
+                if not tried_other_orientation and self.prefer_horizontal < 1 and word.find('\n')==-1:
                     orientation = (Image.ROTATE_90 if orientation is None else
                                    Image.ROTATE_90)
                     tried_other_orientation = True
