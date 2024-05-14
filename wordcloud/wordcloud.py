@@ -493,7 +493,7 @@ class WordCloud(object):
             if rs != 0:
                 font_size = int(round((rs * (freq / float(last_freq))
                                        + (1 - rs)) * font_size))
-            if random_state.random() < self.prefer_horizontal and word[:-1].find('\n')!=-1:
+            if random_state.random() < self.prefer_horizontal :
                 orientation = None
             else:
                 orientation = Image.ROTATE_90
@@ -508,7 +508,10 @@ class WordCloud(object):
                 transposed_font = ImageFont.TransposedFont(
                     font, orientation=orientation)
                 # get size of resulting text
-                box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="la")
+                if word[:-1].find('\n')==-1:
+                    box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="lt")
+                else:
+                    box_size = draw.textbbox((0, 0), word, font=transposed_font, anchor="la")
                 # find possible places using integral image:
                 result = occupancy.sample_position(box_size[3] + self.margin,
                                                    box_size[2] + self.margin,
